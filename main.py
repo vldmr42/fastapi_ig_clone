@@ -1,5 +1,7 @@
 from fastapi import FastAPI
 
+from db import models
+from db.database import engine
 from router import blog_get, blog_post
 
 app = FastAPI()
@@ -12,4 +14,4 @@ def index():
     return {'message': 'Hello World'}
 
 
-
+models.Base.metadata.create_all(engine)
