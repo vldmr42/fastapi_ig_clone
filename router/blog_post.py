@@ -8,6 +8,7 @@ router = APIRouter(
     tags=['blog'],
 )
 
+
 class Image(BaseModel):
     url: str
     alias: str
@@ -36,11 +37,11 @@ def create_blog(blog: BlogModel, id: int, version: int = 1):
 def create_comment(blog: BlogModel,
                    id: int,
                    comment_title: int = Query(None,
-                                           title='Title of the comment',
-                                           description='Description of comment_title',
-                                           alias='commentTitle',
-                                           deprecated=True,
-                                           ),
+                                              title='Title of the comment',
+                                              description='Description of comment_title',
+                                              alias='commentTitle',
+                                              deprecated=True,
+                                              ),
                    contents: str = Body(...,
                                         min_length=10,
                                         max_length=50,
@@ -57,3 +58,7 @@ def create_comment(blog: BlogModel,
         'comment_id': comment_id,
 
     }
+
+
+def required_functionality():
+    return {'message': 'Learning fastapi is important'}
