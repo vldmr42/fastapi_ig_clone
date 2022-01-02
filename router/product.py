@@ -1,10 +1,10 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Header
 from fastapi.responses import Response, HTMLResponse, PlainTextResponse
 from sqlalchemy.orm import Session
 
 from db.database import get_db
 
-from typing import List
+from typing import List, Optional
 
 router = APIRouter(
     prefix='/product',
@@ -19,6 +19,14 @@ def get_all_products():
     data = ' '.join(products)
     return Response(content=data, media_type='text/plain')
 
+
+@router.get('/withheader')
+def get_product(
+        response: Response,
+        custom_header: Optional[List[str]] = Header(None)
+):
+    response.headers['custom_response_header'] = ' '.join(custom_header)
+    return products
 
 @router.get('/{id}', responses={
     200: {
