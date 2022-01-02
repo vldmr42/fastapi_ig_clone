@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
 from db import db_article
@@ -20,4 +20,5 @@ def create_article(request: ArticleBase, db: Session = Depends(get_db)):
 
 @router.get('/{id}', response_model=ArticleDisplay)
 def get_article(id: int, db: Session = Depends(get_db)):
-    return db_article.get_article(db, id)
+    article = db_article.get_article(db, id)
+    return article
