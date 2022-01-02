@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status, Header, Cookie
+from fastapi import APIRouter, Depends, HTTPException, status, Header, Cookie, Form
 from fastapi.responses import Response, HTMLResponse, PlainTextResponse
 from sqlalchemy.orm import Session
 
@@ -12,6 +12,12 @@ router = APIRouter(
 )
 
 products = ['watch', 'camera', 'phone']
+
+
+@router.post('/new')
+def create_product(name: str = Form(...)):
+    products.append(name)
+    return products
 
 
 @router.get('/all')
